@@ -26,7 +26,13 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-
+          
+      - name: compress node_modules folder possibly spend up Kudu Unpack during deployment
+        run : tar czfv node_modules.tar.gz -C ./node_modules .
+        
+      - name: remove node_modules
+        run: rm -rf node_modules
+    
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
